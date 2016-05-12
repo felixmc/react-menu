@@ -1,5 +1,6 @@
 require('./helper');
 var React = require('react');
+var ReactDOM = require('react-dom');
 var buildClassName = require('../lib/mixins/buildClassName');
 
 var MockComponent = React.createClass({
@@ -7,7 +8,7 @@ var MockComponent = React.createClass({
 
   render: function (){
     return (
-      React.DOM.div({
+      React.createElement('div', {
         className: this.buildClassName('foo')
       })
     )
@@ -18,16 +19,16 @@ describe('buildClassName', function () {
 
   it('includes the name passed in', function() {
     var _currentDiv = document.createElement('div');
-    var menu = React.renderComponent(MockComponent(), _currentDiv);
-    equal(menu.getDOMNode().className, 'foo');
+    var menu = ReactDOM.render(React.createElement(MockComponent), _currentDiv);
+    equal(ReactDOM.findDOMNode(menu).className, 'foo');
   });
 
   it('concatenates existing classNames passed in', function() {
     var _currentDiv = document.createElement('div');
-    var menu = React.renderComponent(MockComponent({
+    var menu = ReactDOM.render(React.createElement(MockComponent,{
       className: 'bar'
     }), _currentDiv);
-    equal(menu.getDOMNode().className, 'foo bar');
+    equal(ReactDOM.findDOMNode(menu).className, 'foo bar');
   });
 
 });

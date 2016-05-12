@@ -71,8 +71,8 @@ describe('Menu', function () {
     var menuA, menuB, containerA, containerB;
 
     beforeEach(function () {
-      containerA = document.createElement("div");
-      containerB = document.createElement("div");
+      containerA = document.createElement('div');
+      containerB = document.createElement('div');
 
       document.body.appendChild(containerA);
       document.body.appendChild(containerB);
@@ -87,10 +87,10 @@ describe('Menu', function () {
     });
 
     it('should close the active menu when clicking another menu', function (done) {
-      TestUtils.Simulate.click(menuA.refs.trigger.getDOMNode());
+      TestUtils.Simulate.click(ReactDOM.findDOMNode(menuA.refs.trigger));
       ok(menuA.state.active);
 
-      TestUtils.Simulate.click(menuB.refs.trigger.getDOMNode());
+      TestUtils.Simulate.click(ReactDOM.findDOMNode(menuB.refs.trigger));
       // Unfortunate implementation detail that `active` is not reset until the next execution cycle
       setTimeout(function() {
         ok(!menuA.state.active);
