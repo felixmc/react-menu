@@ -1,6 +1,5 @@
 var React = require('react');
 
-var cloneWithProps = require('react/lib/cloneWithProps');
 var MenuTrigger = require('./MenuTrigger');
 var MenuOptions = require('./MenuOptions');
 var MenuOption = require('./MenuOption');
@@ -30,7 +29,7 @@ var Menu = module.exports = React.createFactory(React.createClass({
     };
   },
 
-  getInitialState: function () {
+  getInitialState: function() {
     return {
       id: uuid(),
       active: false,
@@ -40,35 +39,35 @@ var Menu = module.exports = React.createFactory(React.createClass({
     };
   },
 
-  closeMenu: function () {
-    this.setState({ active: false }, this.focusTrigger);
+  closeMenu: function() {
+    this.setState({active: false}, this.focusTrigger);
   },
 
-  focusTrigger: function () {
+  focusTrigger: function() {
     this.refs.trigger.getDOMNode().focus();
   },
 
-  handleBlur: function (e) {
+  handleBlur: function(e) {
     // give next element a tick to take focus
-    setTimeout(function () {
+    setTimeout(function() {
       if (!this.getDOMNode().contains(document.activeElement)) {
         this.closeMenu();
       }
     }.bind(this), 1);
   },
 
-  handleTriggerToggle: function () {
-    this.setState({ active: !this.state.active }, this.afterTriggerToggle);
+  handleTriggerToggle: function() {
+    this.setState({active: !this.state.active}, this.afterTriggerToggle);
   },
 
-  afterTriggerToggle: function () {
+  afterTriggerToggle: function() {
     if (this.state.active) {
       this.refs.options.focusOption(0);
       this.updatePositioning();
     }
   },
 
-  updatePositioning: function () {
+  updatePositioning: function() {
     var triggerRect = this.refs.trigger.getDOMNode().getBoundingClientRect();
     var optionsRect = this.refs.options.getDOMNode().getBoundingClientRect();
     var positionState = {};
@@ -86,39 +85,42 @@ var Menu = module.exports = React.createFactory(React.createClass({
     this.setState(positionState);
   },
 
-  handleKeys: function (e) {
+  handleKeys: function(e) {
     if (e.key === 'Escape') {
       this.closeMenu();
     }
   },
 
-  verifyTwoChildren: function () {
-    var ok = React.Children.count(this.props.children) === 2;
-    if (!ok) throw 'react-menu can only take two children, a MenuTrigger, and a MenuOptions';
+  verifyTwoChildren: function() {
+    var ok = (React.Children.count(this.props.children) === 2);
+    if (!ok)
+      throw 'react-menu can only take two children, a MenuTrigger, and a MenuOptions';
     return ok;
   },
 
-  renderTrigger: function () {
+  renderTrigger: function() {
     var trigger;
-    if (this.verifyTwoChildren()) {
-      React.Children.forEach(this.props.children, function (child) {
+    if(this.verifyTwoChildren()) {
+      React.Children.forEach(this.props.children, function(child) {
         if (child.type === MenuTrigger.type) {
-          trigger = cloneWithProps(child, {
+          trigger = React.cloneElement(child, {
             ref: 'trigger',
             onToggleActive: this.handleTriggerToggle
           });
         }
       }.bind(this));
     }
+
+    console.log('trigger:', trigger)
     return trigger;
   },
 
-  renderMenuOptions: function () {
+  renderMenuOptions: function() {
     var options;
-    if (this.verifyTwoChildren()) {
-      React.Children.forEach(this.props.children, function (child) {
+    if(this.verifyTwoChildren()) {
+      React.Children.forEach(this.props.children, function(child) {
         if (child.type === MenuOptions.type) {
-          options = cloneWithProps(child, {
+          options = React.cloneElement(child, {
             ref: 'options',
             horizontalPlacement: this.state.horizontalPlacement,
             verticalPlacement: this.state.verticalPlacement,
@@ -130,17 +132,18 @@ var Menu = module.exports = React.createFactory(React.createClass({
     return options;
   },
 
-  render: function () {
-    return React.createElement(
-      'div',
-      {
-        className: this.buildClassName('Menu'),
-        onKeyDown: this.handleKeys,
-        onBlur: this.handleBlur
-      },
-      this.renderTrigger(),
-      this.renderMenuOptions()
-    );
+
+  render: function() {
+    return (
+      <div
+        className={this.buildClassName('Menu')}
+        onKeyDown={this.handleKeys}
+        onBlur={this.handleBlur}
+      >
+        {this.renderTrigger()}
+        {this.renderMenuOptions()}
+      </div>
+    )
   }
 
 }));

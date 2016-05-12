@@ -13,34 +13,38 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "scripts/test --browsers Chrome --single-run",
-    "start": "scripts/dev-examples"
+    "build:lib": "babel src --out-dir lib",
+    "build:dist": "webpack",
+    "build:examples": "webpack --config webpack.examples.config.js",
+    "test": "karma start --browsers Chrome --single-run",
+    "start": "webpack-dev-server --inline --content-base examples/ --config webpack.examples.config.js"
   },
   "authors": [
     "Jason Madsen"
   ],
   "license": "MIT",
+  "dependencies": {
+    "js-stylesheet": "0.0.1"
+  },
   "devDependencies": {
-    "browserify": "4.2.3",
-    "browserify-shim": "3.6.0",
-    "envify": "1.2.0",
+    "babel-cli": "^6.8.0",
+    "babel-core": "^6.8.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.5.0",
     "expect": "0.1.1",
-    "jsx-loader": "0.11.2",
-    "karma": "0.12.16",
-    "karma-browserify": "^0.2.1",
-    "karma-chrome-launcher": "0.1.4",
-    "karma-cli": "0.0.4",
-    "karma-firefox-launcher": "0.1.3",
-    "karma-mocha": "0.1.3",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-cli": "^1.0.0",
+    "karma-mocha": "^1.0.1",
+    "karma-webpack": "^1.7.0",
     "mocha": "1.20.1",
     "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.0",
-    "reactify": "^0.14.0",
     "rf-release": "0.3.1",
     "uglify-js": "2.4.15",
     "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.6.5"
+    "webpack-dev-server": "^1.14.0"
   },
   "peerDependencies": {
     "react": "^0.14.0"
@@ -55,16 +59,5 @@
     "react-component",
     "menu",
     "dropdown"
-  ],
-  "browserify-shim": {
-    "react": "global:React"
-  },
-  "browserify": {
-    "transform": [
-      "reactify"
-    ]
-  },
-  "dependencies": {
-    "js-stylesheet": "0.0.1"
-  }
+  ]
 }

@@ -2,8 +2,6 @@ var React = require('react');
 var buildClassName = require('../mixins/buildClassName');
 
 var MenuOption = module.exports = React.createFactory(React.createClass({
-  displayName: 'exports',
-
 
   propTypes: {
     active: React.PropTypes.bool,
@@ -14,13 +12,13 @@ var MenuOption = module.exports = React.createFactory(React.createClass({
 
   mixins: [buildClassName],
 
-  notifyDisabledSelect: function () {
+  notifyDisabledSelect: function() {
     if (this.props.onDisabledSelect) {
       this.props.onDisabledSelect();
     }
   },
 
-  onSelect: function () {
+  onSelect: function() {
     if (this.props.disabled) {
       this.notifyDisabledSelect();
       //early return if disabled
@@ -32,29 +30,29 @@ var MenuOption = module.exports = React.createFactory(React.createClass({
     this.props._internalSelect();
   },
 
-  handleKeyUp: function (e) {
+  handleKeyUp: function(e) {
     if (e.key === ' ') {
       this.onSelect();
     }
   },
 
-  handleKeyDown: function (e) {
+  handleKeyDown: function(e) {
     if (e.key === 'Enter') {
       this.onSelect();
     }
   },
 
-  handleClick: function () {
+  handleClick: function() {
     this.onSelect();
   },
 
-  handleHover: function () {
+  handleHover: function() {
     this.props._internalFocus(this.props.index);
   },
 
-  buildName: function () {
+  buildName: function() {
     var name = this.buildClassName('Menu__MenuOption');
-    if (this.props.active) {
+    if (this.props.active){
       name += ' Menu__MenuOption--active';
     }
     if (this.props.disabled) {
@@ -63,21 +61,21 @@ var MenuOption = module.exports = React.createFactory(React.createClass({
     return name;
   },
 
-  render: function () {
-    return React.createElement(
-      'div',
-      {
-        onClick: this.handleClick,
-        onKeyUp: this.handleKeyUp,
-        onKeyDown: this.handleKeyDown,
-        onMouseOver: this.handleHover,
-        className: this.buildName(),
-        role: 'menuitem',
-        tabIndex: '-1',
-        'aria-disabled': this.props.disabled
-      },
-      this.props.children
-    );
+  render: function() {
+    return (
+      <div
+        onClick={this.handleClick}
+        onKeyUp={this.handleKeyUp}
+        onKeyDown={this.handleKeyDown}
+        onMouseOver={this.handleHover}
+        className={this.buildName()}
+        role="menuitem"
+        tabIndex="-1"
+        aria-disabled={this.props.disabled}
+      >
+        {this.props.children}
+      </div>
+    )
   }
 
 }));

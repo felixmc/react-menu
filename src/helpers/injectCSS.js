@@ -1,6 +1,6 @@
 var jss = require('js-stylesheet');
 
-module.exports = function () {
+module.exports = function() {
   jss({
     '.Menu': {
       position: 'relative'
@@ -18,10 +18,10 @@ module.exports = function () {
       cursor: 'pointer'
     },
     '.Menu__MenuOption--disabled': {
-      'background-color': '#eee'
+      'background-color': '#eee',
     },
     '.Menu__MenuOption--active': {
-      'background-color': '#0aafff'
+      'background-color': '#0aafff',
     },
     '.Menu__MenuOption--active.Menu__MenuOption--disabled': {
       'background-color': '#ccc'
@@ -41,6 +41,7 @@ module.exports = function () {
     '.Menu__MenuOptions--vertical-top': {
       bottom: '45px'
     },
-    '.Menu__MenuOptions--vertical-bottom': {}
+    '.Menu__MenuOptions--vertical-bottom': {
+    }
   });
 };

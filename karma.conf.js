@@ -3,7 +3,7 @@ module.exports = function(config) {
 
     basePath: '',
 
-    frameworks: ['mocha', 'browserify'],
+    frameworks: ['mocha'],
 
     files: [
       'specs/main.js'
@@ -12,13 +12,19 @@ module.exports = function(config) {
     exclude: [],
 
     preprocessors: {
-      'specs/main.js': ['browserify']
+      'specs/main.js': ['webpack']
     },
 
-    browserify: {
-      transform: ['envify', 'reactify'],
-      watch: true,
-      debug: true
+    webpack: {
+      module: {
+        loaders: [
+          {
+            test: /\.jsx?$/,
+            loader: 'babel',
+            exclude: /node_modules/,
+          }
+        ]
+      },
     },
 
     reporters: ['progress'],

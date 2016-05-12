@@ -1,12 +1,11 @@
-/** @jsx React.DOM */
 assert = require('assert');
 React = require('react');
 ReactDOM = require('react-dom');
 TestUtils = require('react-addons-test-utils');
-var Menu = require('../lib/components/Menu');
-var MenuTrigger = require('../lib/components/MenuTrigger');
-var MenuOptions = require('../lib/components/MenuOptions');
-var MenuOption = require('../lib/components/MenuOption');
+var Menu = require('../src/components/Menu');
+var MenuTrigger = require('../src/components/MenuTrigger');
+var MenuOptions = require('../src/components/MenuOptions');
+var MenuOption = require('../src/components/MenuOption');
 
 ok = assert.ok;
 equal = assert.equal;

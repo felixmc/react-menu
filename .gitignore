@@ -1,1 +1,3 @@
 examples/**/*-bundle.js
+.tern-port
+node_modules/
