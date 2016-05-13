@@ -1,76 +1,100 @@
-var React = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var MenuTrigger = require('./MenuTrigger');
-var MenuOptions = require('./MenuOptions');
-var MenuOption = require('./MenuOption');
-var uuid = require('../helpers/uuid');
-var injectCSS = require('../helpers/injectCSS');
-var buildClassName = require('../mixins/buildClassName');
+import MenuTrigger from './MenuTrigger';
+import MenuOptions from './MenuOptions';
+import MenuOption from './MenuOption';
+import uuid from '../helpers/uuid';
+import injectCSS from '../helpers/injectCSS';
+import buildClassName from '../mixins/buildClassName';
 
-var Menu = module.exports = React.createFactory(React.createClass({
+export default class Menu extends React.Component {
+  static injectCSS = injectCSS
 
-  displayName: 'Menu',
-
-  statics: {
-    injectCSS: injectCSS
-  },
-
-  mixins: [buildClassName],
-
-  childContextTypes: {
-    id: React.PropTypes.string,
-    active: React.PropTypes.bool
-  },
-
-  getChildContext: function () {
+  static get propTypes() {
     return {
-      id: this.state.id,
-      active: this.state.active
-    };
-  },
+      children: (props, propName, componentName) => {
+        const prop = props[propName];
+        const error = new Error('react-menu can only take two children, a MenuTrigger, and a MenuOptions');
 
-  getInitialState: function() {
+        let ok = React.Children.count(prop) === 2;
+        if (!ok) return error;
+
+        React.Children.forEach(prop, (child) => {
+          if (child.type !== MenuOptions && child.type !== MenuTrigger) {
+            ok = false;
+          }
+        });
+
+        if (!ok) return error;
+      }
+    }
+  }
+
+  static get childContextTypes() {
     return {
+      id: React.PropTypes.string,
+      active: React.PropTypes.bool
+    }
+  }
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
       id: uuid(),
       active: false,
       selectedIndex: 0,
       horizontalPlacement: 'right', // only 'right' || 'left'
       verticalPlacement: 'bottom' // only 'top' || 'bottom'
     };
-  },
+  }
 
-  closeMenu: function() {
-    this.setState({active: false}, this.focusTrigger);
-  },
+  buildClassName = buildClassName
 
-  focusTrigger: function() {
-    this.refs.trigger.getDOMNode().focus();
-  },
+  getChildContext() {
+    return {
+      id: this.state.id,
+      active: this.state.active
+    };
+  }
 
-  handleBlur: function(e) {
+  closeMenu(skipFocus) {
+    this.setState({active: false}, () => {
+      if (!skipFocus)
+        this.focusTrigger()
+    });
+  }
+
+  focusTrigger() {
+    ReactDOM.findDOMNode(this.refs.trigger).focus();
+  }
+
+  handleBlur(e) {
+    const self = this;
     // give next element a tick to take focus
-    setTimeout(function() {
-      if (!this.getDOMNode().contains(document.activeElement)) {
-        this.closeMenu();
+    setTimeout(() => {
+      if (!ReactDOM.findDOMNode(self).contains(document.activeElement)) {
+        self.closeMenu(true);
       }
-    }.bind(this), 1);
-  },
+    }, 1);
+  }
 
-  handleTriggerToggle: function() {
+  handleTriggerToggle() {
     this.setState({active: !this.state.active}, this.afterTriggerToggle);
-  },
+  }
 
-  afterTriggerToggle: function() {
+  afterTriggerToggle() {
     if (this.state.active) {
       this.refs.options.focusOption(0);
       this.updatePositioning();
     }
-  },
+  }
 
-  updatePositioning: function() {
-    var triggerRect = this.refs.trigger.getDOMNode().getBoundingClientRect();
-    var optionsRect = this.refs.options.getDOMNode().getBoundingClientRect();
-    var positionState = {};
+  updatePositioning() {
+    const triggerRect = ReactDOM.findDOMNode(this.refs.trigger).getBoundingClientRect();
+    const optionsRect = ReactDOM.findDOMNode(this.refs.options).getBoundingClientRect();
+    const positionState = {};
     // horizontal = left if it wont fit on left side
     if (triggerRect.left + optionsRect.width > window.innerWidth) {
       positionState.horizontalPlacement = 'left';
@@ -83,67 +107,58 @@ var Menu = module.exports = React.createFactory(React.createClass({
       positionState.verticalPlacement = 'bottom';
     }
     this.setState(positionState);
-  },
+  }
 
-  handleKeys: function(e) {
+  handleKeys(e) {
     if (e.key === 'Escape') {
       this.closeMenu();
     }
-  },
+  }
 
-  verifyTwoChildren: function() {
-    var ok = (React.Children.count(this.props.children) === 2);
-    if (!ok)
-      throw 'react-menu can only take two children, a MenuTrigger, and a MenuOptions';
-    return ok;
-  },
+  renderTrigger() {
+    let trigger;
+    const self = this;
 
-  renderTrigger: function() {
-    var trigger;
-    if(this.verifyTwoChildren()) {
-      React.Children.forEach(this.props.children, function(child) {
-        if (child.type === MenuTrigger.type) {
-          trigger = React.cloneElement(child, {
-            ref: 'trigger',
-            onToggleActive: this.handleTriggerToggle
-          });
-        }
-      }.bind(this));
-    }
+    React.Children.forEach(this.props.children, (child) => {
+      if (child.type === MenuTrigger) {
+        trigger = React.cloneElement(child, {
+          ref: 'trigger',
+          onToggleActive: self.handleTriggerToggle.bind(self)
+        });
+      }
+    })
 
-    console.log('trigger:', trigger)
     return trigger;
-  },
+  }
 
-  renderMenuOptions: function() {
-    var options;
-    if(this.verifyTwoChildren()) {
-      React.Children.forEach(this.props.children, function(child) {
-        if (child.type === MenuOptions.type) {
-          options = React.cloneElement(child, {
-            ref: 'options',
-            horizontalPlacement: this.state.horizontalPlacement,
-            verticalPlacement: this.state.verticalPlacement,
-            onSelectionMade: this.closeMenu
-          });
-        }
-      }.bind(this));
-    }
+  renderMenuOptions() {
+    let options;
+    const self = this;
+
+    React.Children.forEach(this.props.children, (child) => {
+      if (child.type === MenuOptions) {
+        options = React.cloneElement(child, {
+          ref: 'options',
+          horizontalPlacement: self.state.horizontalPlacement,
+          verticalPlacement: self.state.verticalPlacement,
+          onSelectionMade: self.closeMenu.bind(self)
+        });
+      }
+    })
+
     return options;
-  },
+  }
 
-
-  render: function() {
+  render() {
     return (
       <div
         className={this.buildClassName('Menu')}
-        onKeyDown={this.handleKeys}
-        onBlur={this.handleBlur}
+        onKeyDown={this.handleKeys.bind(this)}
+        onBlur={this.handleBlur.bind(this)}
       >
         {this.renderTrigger()}
         {this.renderMenuOptions()}
       </div>
     )
   }
-
-}));
+}

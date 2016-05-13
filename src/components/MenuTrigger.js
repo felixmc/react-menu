@@ -1,36 +1,37 @@
-var React = require('react');
+import React from 'react';
 
-var buildClassName = require('../mixins/buildClassName');
+import buildClassName from '../mixins/buildClassName';
 
-var MenuTrigger = module.exports = React.createFactory(React.createClass({
+export default class MenuTrigger extends React.Component {
+  static get contextTypes() {
+    return {
+      id: React.PropTypes.string,
+      active: React.PropTypes.bool
+    }
+  }
 
-  contextTypes: {
-    id: React.PropTypes.string,
-    active: React.PropTypes.bool
-  },
+  buildClassName = buildClassName
 
-  mixins: [buildClassName],
-
-  toggleActive: function() {
+  toggleActive() {
     this.props.onToggleActive(!this.context.active);
-  },
+  }
 
-  handleKeyUp: function(e) {
+  handleKeyUp(e) {
     if (e.key === ' ')
       this.toggleActive();
-  },
+  }
 
-  handleKeyDown: function(e) {
+  handleKeyDown(e) {
     if (e.key === 'Enter')
       this.toggleActive();
-  },
+  }
 
-  handleClick: function() {
+  handleClick() {
     this.toggleActive();
-  },
+  }
 
-  render: function() {
-    var triggerClassName =
+  render() {
+    const triggerClassName =
       this.buildClassName(
         'Menu__MenuTrigger ' +
         (this.context.active
@@ -41,17 +42,16 @@ var MenuTrigger = module.exports = React.createFactory(React.createClass({
     return (
       <div
         className={triggerClassName}
-        onClick={this.handleClick}
-        onKeyUp={this.handleKeyUp}
-        onKeyDown={this.handleKeyDown}
-        tabIndex="0"
+        onClick={this.handleClick.bind(this)}
+        onKeyUp={this.handleKeyUp.bind(this)}
+        onKeyDown={this.handleKeyDown.bind(this)}
+        tabIndex='0'
         role="button"
         aria-owns={this.context.id}
-        aria-haspopup="true"
+        aria-haspopup='true'
       >
         {this.props.children}
       </div>
     )
   }
-
-}));
+}

@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"));
+		module.exports = factory(require("react"), require("react-dom"));
 	else if(typeof define === 'function' && define.amd)
-		define(["react"], factory);
+		define(["react", "react-dom"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactMenu"] = factory(require("react"));
+		exports["ReactMenu"] = factory(require("react"), require("react-dom"));
 	else
-		root["ReactMenu"] = factory(root["react"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+		root["ReactMenu"] = factory(root["react"], root["react-dom"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,163 +54,269 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Menu = __webpack_require__(1);
-	Menu.MenuTrigger = __webpack_require__(14);
-	Menu.MenuOptions = __webpack_require__(16);
-	Menu.MenuOption = __webpack_require__(17);
+	'use strict';
 
-	module.exports = Menu;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.MenuOption = exports.MenuOptions = exports.MenuTrigger = exports.default = undefined;
+
+	var _Menu = __webpack_require__(1);
+
+	var _Menu2 = _interopRequireDefault(_Menu);
+
+	var _MenuTrigger = __webpack_require__(4);
+
+	var _MenuTrigger2 = _interopRequireDefault(_MenuTrigger);
+
+	var _MenuOptions = __webpack_require__(6);
+
+	var _MenuOptions2 = _interopRequireDefault(_MenuOptions);
+
+	var _MenuOption = __webpack_require__(7);
+
+	var _MenuOption2 = _interopRequireDefault(_MenuOption);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Menu2.default;
+	exports.MenuTrigger = _MenuTrigger2.default;
+	exports.MenuOptions = _MenuOptions2.default;
+	exports.MenuOption = _MenuOption2.default;
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(2);
+	'use strict';
 
-	var cloneWithProps = __webpack_require__(3);
-	var MenuTrigger = __webpack_require__(14);
-	var MenuOptions = __webpack_require__(16);
-	var MenuOption = __webpack_require__(17);
-	var uuid = __webpack_require__(18);
-	var injectCSS = __webpack_require__(19);
-	var buildClassName = __webpack_require__(15);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	var Menu = module.exports = React.createFactory(React.createClass({
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	  displayName: 'Menu',
+	var _react = __webpack_require__(2);
 
-	  statics: {
-	    injectCSS: injectCSS
-	  },
+	var _react2 = _interopRequireDefault(_react);
 
-	  mixins: [buildClassName],
+	var _reactDom = __webpack_require__(3);
 
-	  childContextTypes: {
-	    id: React.PropTypes.string,
-	    active: React.PropTypes.bool
-	  },
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	  getChildContext: function () {
-	    return {
-	      id: this.state.id,
-	      active: this.state.active
-	    };
-	  },
+	var _MenuTrigger = __webpack_require__(4);
 
-	  getInitialState: function () {
-	    return {
-	      id: uuid(),
+	var _MenuTrigger2 = _interopRequireDefault(_MenuTrigger);
+
+	var _MenuOptions = __webpack_require__(6);
+
+	var _MenuOptions2 = _interopRequireDefault(_MenuOptions);
+
+	var _MenuOption = __webpack_require__(7);
+
+	var _MenuOption2 = _interopRequireDefault(_MenuOption);
+
+	var _uuid = __webpack_require__(8);
+
+	var _uuid2 = _interopRequireDefault(_uuid);
+
+	var _injectCSS = __webpack_require__(9);
+
+	var _injectCSS2 = _interopRequireDefault(_injectCSS);
+
+	var _buildClassName = __webpack_require__(5);
+
+	var _buildClassName2 = _interopRequireDefault(_buildClassName);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Menu = function (_React$Component) {
+	  _inherits(Menu, _React$Component);
+
+	  _createClass(Menu, null, [{
+	    key: 'propTypes',
+	    get: function get() {
+	      return {
+	        children: function children(props, propName, componentName) {
+	          var prop = props[propName];
+	          var error = new Error('react-menu can only take two children, a MenuTrigger, and a MenuOptions');
+
+	          var ok = _react2.default.Children.count(prop) === 2;
+	          if (!ok) return error;
+
+	          _react2.default.Children.forEach(prop, function (child) {
+	            if (child.type !== _MenuOptions2.default && child.type !== _MenuTrigger2.default) {
+	              ok = false;
+	            }
+	          });
+
+	          if (!ok) return error;
+	        }
+	      };
+	    }
+	  }, {
+	    key: 'childContextTypes',
+	    get: function get() {
+	      return {
+	        id: _react2.default.PropTypes.string,
+	        active: _react2.default.PropTypes.bool
+	      };
+	    }
+	  }]);
+
+	  function Menu(props, context) {
+	    _classCallCheck(this, Menu);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).call(this, props, context));
+
+	    _this.buildClassName = _buildClassName2.default;
+
+
+	    _this.state = {
+	      id: (0, _uuid2.default)(),
 	      active: false,
 	      selectedIndex: 0,
 	      horizontalPlacement: 'right', // only 'right' || 'left'
 	      verticalPlacement: 'bottom' // only 'top' || 'bottom'
 	    };
-	  },
-
-	  closeMenu: function () {
-	    this.setState({ active: false }, this.focusTrigger);
-	  },
-
-	  focusTrigger: function () {
-	    this.refs.trigger.getDOMNode().focus();
-	  },
-
-	  handleBlur: function (e) {
-	    // give next element a tick to take focus
-	    setTimeout(function () {
-	      if (!this.getDOMNode().contains(document.activeElement)) {
-	        this.closeMenu();
-	      }
-	    }.bind(this), 1);
-	  },
-
-	  handleTriggerToggle: function () {
-	    this.setState({ active: !this.state.active }, this.afterTriggerToggle);
-	  },
-
-	  afterTriggerToggle: function () {
-	    if (this.state.active) {
-	      this.refs.options.focusOption(0);
-	      this.updatePositioning();
-	    }
-	  },
-
-	  updatePositioning: function () {
-	    var triggerRect = this.refs.trigger.getDOMNode().getBoundingClientRect();
-	    var optionsRect = this.refs.options.getDOMNode().getBoundingClientRect();
-	    var positionState = {};
-	    // horizontal = left if it wont fit on left side
-	    if (triggerRect.left + optionsRect.width > window.innerWidth) {
-	      positionState.horizontalPlacement = 'left';
-	    } else {
-	      positionState.horizontalPlacement = 'right';
-	    }
-	    if (triggerRect.top + optionsRect.height > window.innerHeight) {
-	      positionState.verticalPlacement = 'top';
-	    } else {
-	      positionState.verticalPlacement = 'bottom';
-	    }
-	    this.setState(positionState);
-	  },
-
-	  handleKeys: function (e) {
-	    if (e.key === 'Escape') {
-	      this.closeMenu();
-	    }
-	  },
-
-	  verifyTwoChildren: function () {
-	    var ok = React.Children.count(this.props.children) === 2;
-	    if (!ok) throw 'react-menu can only take two children, a MenuTrigger, and a MenuOptions';
-	    return ok;
-	  },
-
-	  renderTrigger: function () {
-	    var trigger;
-	    if (this.verifyTwoChildren()) {
-	      React.Children.forEach(this.props.children, function (child) {
-	        if (child.type === MenuTrigger.type) {
-	          trigger = cloneWithProps(child, {
-	            ref: 'trigger',
-	            onToggleActive: this.handleTriggerToggle
-	          });
-	        }
-	      }.bind(this));
-	    }
-	    return trigger;
-	  },
-
-	  renderMenuOptions: function () {
-	    var options;
-	    if (this.verifyTwoChildren()) {
-	      React.Children.forEach(this.props.children, function (child) {
-	        if (child.type === MenuOptions.type) {
-	          options = cloneWithProps(child, {
-	            ref: 'options',
-	            horizontalPlacement: this.state.horizontalPlacement,
-	            verticalPlacement: this.state.verticalPlacement,
-	            onSelectionMade: this.closeMenu
-	          });
-	        }
-	      }.bind(this));
-	    }
-	    return options;
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      {
-	        className: this.buildClassName('Menu'),
-	        onKeyDown: this.handleKeys,
-	        onBlur: this.handleBlur
-	      },
-	      this.renderTrigger(),
-	      this.renderMenuOptions()
-	    );
+	    return _this;
 	  }
 
-	}));
+	  _createClass(Menu, [{
+	    key: 'getChildContext',
+	    value: function getChildContext() {
+	      return {
+	        id: this.state.id,
+	        active: this.state.active
+	      };
+	    }
+	  }, {
+	    key: 'closeMenu',
+	    value: function closeMenu(skipFocus) {
+	      var _this2 = this;
+
+	      this.setState({ active: false }, function () {
+	        if (!skipFocus) _this2.focusTrigger();
+	      });
+	    }
+	  }, {
+	    key: 'focusTrigger',
+	    value: function focusTrigger() {
+	      _reactDom2.default.findDOMNode(this.refs.trigger).focus();
+	    }
+	  }, {
+	    key: 'handleBlur',
+	    value: function handleBlur(e) {
+	      var self = this;
+	      // give next element a tick to take focus
+	      setTimeout(function () {
+	        if (!_reactDom2.default.findDOMNode(self).contains(document.activeElement)) {
+	          self.closeMenu(true);
+	        }
+	      }, 1);
+	    }
+	  }, {
+	    key: 'handleTriggerToggle',
+	    value: function handleTriggerToggle() {
+	      this.setState({ active: !this.state.active }, this.afterTriggerToggle);
+	    }
+	  }, {
+	    key: 'afterTriggerToggle',
+	    value: function afterTriggerToggle() {
+	      if (this.state.active) {
+	        this.refs.options.focusOption(0);
+	        this.updatePositioning();
+	      }
+	    }
+	  }, {
+	    key: 'updatePositioning',
+	    value: function updatePositioning() {
+	      var triggerRect = _reactDom2.default.findDOMNode(this.refs.trigger).getBoundingClientRect();
+	      var optionsRect = _reactDom2.default.findDOMNode(this.refs.options).getBoundingClientRect();
+	      var positionState = {};
+	      // horizontal = left if it wont fit on left side
+	      if (triggerRect.left + optionsRect.width > window.innerWidth) {
+	        positionState.horizontalPlacement = 'left';
+	      } else {
+	        positionState.horizontalPlacement = 'right';
+	      }
+	      if (triggerRect.top + optionsRect.height > window.innerHeight) {
+	        positionState.verticalPlacement = 'top';
+	      } else {
+	        positionState.verticalPlacement = 'bottom';
+	      }
+	      this.setState(positionState);
+	    }
+	  }, {
+	    key: 'handleKeys',
+	    value: function handleKeys(e) {
+	      if (e.key === 'Escape') {
+	        this.closeMenu();
+	      }
+	    }
+	  }, {
+	    key: 'renderTrigger',
+	    value: function renderTrigger() {
+	      var trigger = void 0;
+	      var self = this;
+
+	      _react2.default.Children.forEach(this.props.children, function (child) {
+	        if (child.type === _MenuTrigger2.default) {
+	          trigger = _react2.default.cloneElement(child, {
+	            ref: 'trigger',
+	            onToggleActive: self.handleTriggerToggle.bind(self)
+	          });
+	        }
+	      });
+
+	      return trigger;
+	    }
+	  }, {
+	    key: 'renderMenuOptions',
+	    value: function renderMenuOptions() {
+	      var options = void 0;
+	      var self = this;
+
+	      _react2.default.Children.forEach(this.props.children, function (child) {
+	        if (child.type === _MenuOptions2.default) {
+	          options = _react2.default.cloneElement(child, {
+	            ref: 'options',
+	            horizontalPlacement: self.state.horizontalPlacement,
+	            verticalPlacement: self.state.verticalPlacement,
+	            onSelectionMade: self.closeMenu.bind(self)
+	          });
+	        }
+	      });
+
+	      return options;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          className: this.buildClassName('Menu'),
+	          onKeyDown: this.handleKeys.bind(this),
+	          onBlur: this.handleBlur.bind(this)
+	        },
+	        this.renderTrigger(),
+	        this.renderMenuOptions()
+	      );
+	    }
+	  }]);
+
+	  return Menu;
+	}(_react2.default.Component);
+
+	Menu.injectCSS = _injectCSS2.default;
+	exports.default = Menu;
 
 /***/ },
 /* 2 */
@@ -220,1126 +326,466 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @typechecks static-only
-	 * @providesModule cloneWithProps
-	 */
-
-	'use strict';
-
-	var ReactElement = __webpack_require__(5);
-	var ReactPropTransferer = __webpack_require__(9);
-
-	var keyOf = __webpack_require__(12);
-	var warning = __webpack_require__(13);
-
-	var CHILDREN_PROP = keyOf({ children: null });
-
-	var didDeprecatedWarn = false;
-
-	/**
-	 * Sometimes you want to change the props of a child passed to you. Usually
-	 * this is to add a CSS class.
-	 *
-	 * @param {ReactElement} child child element you'd like to clone
-	 * @param {object} props props you'd like to modify. className and style will be
-	 * merged automatically.
-	 * @return {ReactElement} a clone of child with props merged in.
-	 * @deprecated
-	 */
-	function cloneWithProps(child, props) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    process.env.NODE_ENV !== 'production' ? warning(didDeprecatedWarn, 'cloneWithProps(...) is deprecated. ' + 'Please use React.cloneElement instead.') : undefined;
-	    didDeprecatedWarn = true;
-	    process.env.NODE_ENV !== 'production' ? warning(!child.ref, 'You are calling cloneWithProps() on a child with a ref. This is ' + 'dangerous because you\'re creating a new child which will not be ' + 'added as a ref to its parent.') : undefined;
-	  }
-
-	  var newProps = ReactPropTransferer.mergeProps(props, child.props);
-
-	  // Use `child.props.children` if it is provided.
-	  if (!newProps.hasOwnProperty(CHILDREN_PROP) && child.props.hasOwnProperty(CHILDREN_PROP)) {
-	    newProps.children = child.props.children;
-	  }
-
-	  // The current API doesn't retain _owner, which is why this
-	  // doesn't use ReactElement.cloneAndReplaceProps.
-	  return ReactElement.createElement(child.type, newProps);
-	}
-
-	module.exports = cloneWithProps;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// shim for using process in browser
+	'use strict';
 
-	var process = module.exports = {};
-	var queue = [];
-	var draining = false;
-	var currentQueue;
-	var queueIndex = -1;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	function cleanUpNextTick() {
-	    if (!draining || !currentQueue) {
-	        return;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _buildClassName = __webpack_require__(5);
+
+	var _buildClassName2 = _interopRequireDefault(_buildClassName);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MenuTrigger = function (_React$Component) {
+	  _inherits(MenuTrigger, _React$Component);
+
+	  function MenuTrigger() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, MenuTrigger);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
 	    }
-	    draining = false;
-	    if (currentQueue.length) {
-	        queue = currentQueue.concat(queue);
-	    } else {
-	        queueIndex = -1;
+
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(MenuTrigger)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.buildClassName = _buildClassName2.default, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+
+	  _createClass(MenuTrigger, [{
+	    key: 'toggleActive',
+	    value: function toggleActive() {
+	      this.props.onToggleActive(!this.context.active);
 	    }
-	    if (queue.length) {
-	        drainQueue();
+	  }, {
+	    key: 'handleKeyUp',
+	    value: function handleKeyUp(e) {
+	      if (e.key === ' ') this.toggleActive();
 	    }
-	}
-
-	function drainQueue() {
-	    if (draining) {
-	        return;
+	  }, {
+	    key: 'handleKeyDown',
+	    value: function handleKeyDown(e) {
+	      if (e.key === 'Enter') this.toggleActive();
 	    }
-	    var timeout = setTimeout(cleanUpNextTick);
-	    draining = true;
-
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        while (++queueIndex < len) {
-	            if (currentQueue) {
-	                currentQueue[queueIndex].run();
-	            }
-	        }
-	        queueIndex = -1;
-	        len = queue.length;
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.toggleActive();
 	    }
-	    currentQueue = null;
-	    draining = false;
-	    clearTimeout(timeout);
-	}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var triggerClassName = this.buildClassName('Menu__MenuTrigger ' + (this.context.active ? 'Menu__MenuTrigger__active' : 'Menu__MenuTrigger__inactive'));
 
-	process.nextTick = function (fun) {
-	    var args = new Array(arguments.length - 1);
-	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
-	            args[i - 1] = arguments[i];
-	        }
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          className: triggerClassName,
+	          onClick: this.handleClick.bind(this),
+	          onKeyUp: this.handleKeyUp.bind(this),
+	          onKeyDown: this.handleKeyDown.bind(this),
+	          tabIndex: '0',
+	          role: 'button',
+	          'aria-owns': this.context.id,
+	          'aria-haspopup': 'true'
+	        },
+	        this.props.children
+	      );
 	    }
-	    queue.push(new Item(fun, args));
-	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
+	  }], [{
+	    key: 'contextTypes',
+	    get: function get() {
+	      return {
+	        id: _react2.default.PropTypes.string,
+	        active: _react2.default.PropTypes.bool
+	      };
 	    }
-	};
+	  }]);
 
-	// v8 likes predictible objects
-	function Item(fun, array) {
-	    this.fun = fun;
-	    this.array = array;
-	}
-	Item.prototype.run = function () {
-	    this.fun.apply(null, this.array);
-	};
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
+	  return MenuTrigger;
+	}(_react2.default.Component);
 
-	function noop() {}
-
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
-
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
-	};
-
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
-	};
-	process.umask = function() { return 0; };
-
+	exports.default = MenuTrigger;
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactElement
-	 */
+/***/ function(module, exports) {
 
 	'use strict';
 
-	var ReactCurrentOwner = __webpack_require__(6);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	var assign = __webpack_require__(7);
-	var canDefineProperty = __webpack_require__(8);
-
-	// The Symbol used to tag the ReactElement type. If there is no native Symbol
-	// nor polyfill, then a plain number is used for performance.
-	var REACT_ELEMENT_TYPE = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 0xeac7;
-
-	var RESERVED_PROPS = {
-	  key: true,
-	  ref: true,
-	  __self: true,
-	  __source: true
-	};
-
-	/**
-	 * Base constructor for all React elements. This is only used to make this
-	 * work with a dynamic instanceof check. Nothing should live on this prototype.
-	 *
-	 * @param {*} type
-	 * @param {*} key
-	 * @param {string|object} ref
-	 * @param {*} self A *temporary* helper to detect places where `this` is
-	 * different from the `owner` when React.createElement is called, so that we
-	 * can warn. We want to get rid of owner and replace string `ref`s with arrow
-	 * functions, and as long as `this` and owner are the same, there will be no
-	 * change in behavior.
-	 * @param {*} source An annotation object (added by a transpiler or otherwise)
-	 * indicating filename, line number, and/or other information.
-	 * @param {*} owner
-	 * @param {*} props
-	 * @internal
-	 */
-	var ReactElement = function (type, key, ref, self, source, owner, props) {
-	  var element = {
-	    // This tag allow us to uniquely identify this as a React Element
-	    $$typeof: REACT_ELEMENT_TYPE,
-
-	    // Built-in properties that belong on the element
-	    type: type,
-	    key: key,
-	    ref: ref,
-	    props: props,
-
-	    // Record the component responsible for creating this element.
-	    _owner: owner
-	  };
-
-	  if (process.env.NODE_ENV !== 'production') {
-	    // The validation flag is currently mutative. We put it on
-	    // an external backing store so that we can freeze the whole object.
-	    // This can be replaced with a WeakMap once they are implemented in
-	    // commonly used development environments.
-	    element._store = {};
-
-	    // To make comparing ReactElements easier for testing purposes, we make
-	    // the validation flag non-enumerable (where possible, which should
-	    // include every environment we run tests in), so the test framework
-	    // ignores it.
-	    if (canDefineProperty) {
-	      Object.defineProperty(element._store, 'validated', {
-	        configurable: false,
-	        enumerable: false,
-	        writable: true,
-	        value: false
-	      });
-	      // self and source are DEV only properties.
-	      Object.defineProperty(element, '_self', {
-	        configurable: false,
-	        enumerable: false,
-	        writable: false,
-	        value: self
-	      });
-	      // Two elements created in two different places should be considered
-	      // equal for testing purposes and therefore we hide it from enumeration.
-	      Object.defineProperty(element, '_source', {
-	        configurable: false,
-	        enumerable: false,
-	        writable: false,
-	        value: source
-	      });
-	    } else {
-	      element._store.validated = false;
-	      element._self = self;
-	      element._source = source;
-	    }
-	    Object.freeze(element.props);
-	    Object.freeze(element);
+	exports.default = function (baseName) {
+	  var name = baseName;
+	  if (this.props.className) {
+	    name += ' ' + this.props.className;
 	  }
-
-	  return element;
+	  return name;
 	};
 
-	ReactElement.createElement = function (type, config, children) {
-	  var propName;
-
-	  // Reserved names are extracted
-	  var props = {};
-
-	  var key = null;
-	  var ref = null;
-	  var self = null;
-	  var source = null;
-
-	  if (config != null) {
-	    ref = config.ref === undefined ? null : config.ref;
-	    key = config.key === undefined ? null : '' + config.key;
-	    self = config.__self === undefined ? null : config.__self;
-	    source = config.__source === undefined ? null : config.__source;
-	    // Remaining properties are added to a new props object
-	    for (propName in config) {
-	      if (config.hasOwnProperty(propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-	        props[propName] = config[propName];
-	      }
-	    }
-	  }
-
-	  // Children can be more than one argument, and those are transferred onto
-	  // the newly allocated props object.
-	  var childrenLength = arguments.length - 2;
-	  if (childrenLength === 1) {
-	    props.children = children;
-	  } else if (childrenLength > 1) {
-	    var childArray = Array(childrenLength);
-	    for (var i = 0; i < childrenLength; i++) {
-	      childArray[i] = arguments[i + 2];
-	    }
-	    props.children = childArray;
-	  }
-
-	  // Resolve default props
-	  if (type && type.defaultProps) {
-	    var defaultProps = type.defaultProps;
-	    for (propName in defaultProps) {
-	      if (typeof props[propName] === 'undefined') {
-	        props[propName] = defaultProps[propName];
-	      }
-	    }
-	  }
-
-	  return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
-	};
-
-	ReactElement.createFactory = function (type) {
-	  var factory = ReactElement.createElement.bind(null, type);
-	  // Expose the type on the factory and the prototype so that it can be
-	  // easily accessed on elements. E.g. `<Foo />.type === Foo`.
-	  // This should not be named `constructor` since this may not be the function
-	  // that created the element, and it may not even be a constructor.
-	  // Legacy hook TODO: Warn if this is accessed
-	  factory.type = type;
-	  return factory;
-	};
-
-	ReactElement.cloneAndReplaceKey = function (oldElement, newKey) {
-	  var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
-
-	  return newElement;
-	};
-
-	ReactElement.cloneAndReplaceProps = function (oldElement, newProps) {
-	  var newElement = ReactElement(oldElement.type, oldElement.key, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, newProps);
-
-	  if (process.env.NODE_ENV !== 'production') {
-	    // If the key on the original is valid, then the clone is valid
-	    newElement._store.validated = oldElement._store.validated;
-	  }
-
-	  return newElement;
-	};
-
-	ReactElement.cloneElement = function (element, config, children) {
-	  var propName;
-
-	  // Original props are copied
-	  var props = assign({}, element.props);
-
-	  // Reserved names are extracted
-	  var key = element.key;
-	  var ref = element.ref;
-	  // Self is preserved since the owner is preserved.
-	  var self = element._self;
-	  // Source is preserved since cloneElement is unlikely to be targeted by a
-	  // transpiler, and the original source is probably a better indicator of the
-	  // true owner.
-	  var source = element._source;
-
-	  // Owner will be preserved, unless ref is overridden
-	  var owner = element._owner;
-
-	  if (config != null) {
-	    if (config.ref !== undefined) {
-	      // Silently steal the ref from the parent.
-	      ref = config.ref;
-	      owner = ReactCurrentOwner.current;
-	    }
-	    if (config.key !== undefined) {
-	      key = '' + config.key;
-	    }
-	    // Remaining properties override existing props
-	    for (propName in config) {
-	      if (config.hasOwnProperty(propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
-	        props[propName] = config[propName];
-	      }
-	    }
-	  }
-
-	  // Children can be more than one argument, and those are transferred onto
-	  // the newly allocated props object.
-	  var childrenLength = arguments.length - 2;
-	  if (childrenLength === 1) {
-	    props.children = children;
-	  } else if (childrenLength > 1) {
-	    var childArray = Array(childrenLength);
-	    for (var i = 0; i < childrenLength; i++) {
-	      childArray[i] = arguments[i + 2];
-	    }
-	    props.children = childArray;
-	  }
-
-	  return ReactElement(element.type, key, ref, self, source, owner, props);
-	};
-
-	/**
-	 * @param {?object} object
-	 * @return {boolean} True if `object` is a valid component.
-	 * @final
-	 */
-	ReactElement.isValidElement = function (object) {
-	  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-	};
-
-	module.exports = ReactElement;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+	;
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactCurrentOwner
-	 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	/**
-	 * Keeps track of the current owner.
-	 *
-	 * The current owner is the component who should own any components that are
-	 * currently being constructed.
-	 */
-	var ReactCurrentOwner = {
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	  /**
-	   * @internal
-	   * @type {ReactComponent}
-	   */
-	  current: null
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	};
+	var _react = __webpack_require__(2);
 
-	module.exports = ReactCurrentOwner;
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(3);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _MenuOption = __webpack_require__(7);
+
+	var _MenuOption2 = _interopRequireDefault(_MenuOption);
+
+	var _buildClassName = __webpack_require__(5);
+
+	var _buildClassName2 = _interopRequireDefault(_buildClassName);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MenuOptions = function (_React$Component) {
+	  _inherits(MenuOptions, _React$Component);
+
+	  _createClass(MenuOptions, null, [{
+	    key: 'contextTypes',
+	    get: function get() {
+	      return {
+	        id: _react2.default.PropTypes.string,
+	        active: _react2.default.PropTypes.bool
+	      };
+	    }
+	  }]);
+
+	  function MenuOptions(props, context) {
+	    _classCallCheck(this, MenuOptions);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MenuOptions).call(this, props, context));
+
+	    _this.buildClassName = _buildClassName2.default;
+
+
+	    _this.state = {
+	      activeIndex: 0
+	    };
+	    return _this;
+	  }
+
+	  _createClass(MenuOptions, [{
+	    key: 'onSelectionMade',
+	    value: function onSelectionMade() {
+	      this.props.onSelectionMade();
+	    }
+	  }, {
+	    key: 'moveSelectionUp',
+	    value: function moveSelectionUp() {
+	      this.updateFocusIndexBy(-1);
+	    }
+	  }, {
+	    key: 'moveSelectionDown',
+	    value: function moveSelectionDown() {
+	      this.updateFocusIndexBy(1);
+	    }
+	  }, {
+	    key: 'handleKeys',
+	    value: function handleKeys(e) {
+	      var options = {
+	        'ArrowDown': this.moveSelectionDown,
+	        'ArrowUp': this.moveSelectionUp,
+	        'Escape': this.closeMenu
+	      };
+	      if (options[e.key]) {
+	        options[e.key].call(this);
+	      }
+	    }
+	  }, {
+	    key: 'normalizeSelectedBy',
+	    value: function normalizeSelectedBy(delta, numOptions) {
+	      this.selectedIndex += delta;
+	      if (this.selectedIndex > numOptions - 1) {
+	        this.selectedIndex = 0;
+	      } else if (this.selectedIndex < 0) {
+	        this.selectedIndex = numOptions - 1;
+	      }
+	    }
+	  }, {
+	    key: 'focusOption',
+	    value: function focusOption(index) {
+	      this.selectedIndex = index;
+	      this.updateFocusIndexBy(0);
+	    }
+	  }, {
+	    key: 'updateFocusIndexBy',
+	    value: function updateFocusIndexBy(delta) {
+	      var _this2 = this;
+
+	      var optionNodes = _reactDom2.default.findDOMNode(this).querySelectorAll('.Menu__MenuOption');
+	      this.normalizeSelectedBy(delta, optionNodes.length);
+	      this.setState({ activeIndex: this.selectedIndex }, function () {
+	        optionNodes[_this2.selectedIndex].focus();
+	      });
+	    }
+	  }, {
+	    key: 'renderOptions',
+	    value: function renderOptions() {
+	      var self = this;
+	      var index = 0;
+	      return _react2.default.Children.map(this.props.children, function (c) {
+	        var clonedOption = c;
+	        if (c.type === _MenuOption2.default) {
+	          var active = self.state.activeIndex === index;
+	          clonedOption = _react2.default.cloneElement(c, {
+	            active: active,
+	            index: index,
+	            _internalFocus: self.focusOption.bind(self, index),
+	            _internalSelect: self.onSelectionMade.bind(self)
+	          });
+	          index++;
+	        }
+	        return clonedOption;
+	      });
+	    }
+	  }, {
+	    key: 'buildName',
+	    value: function buildName() {
+	      var cn = this.buildClassName('Menu__MenuOptions');
+	      cn += ' Menu__MenuOptions--horizontal-' + this.props.horizontalPlacement;
+	      cn += ' Menu__MenuOptions--vertical-' + this.props.verticalPlacement;
+	      return cn;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          id: this.context.id,
+	          role: 'menu',
+	          tabIndex: '-1',
+	          'aria-expanded': this.context.active,
+	          style: { visibility: this.context.active ? 'visible' : 'hidden' },
+	          className: this.buildName(),
+	          onKeyDown: this.handleKeys.bind(this)
+	        },
+	        this.renderOptions()
+	      );
+	    }
+	  }]);
+
+	  return MenuOptions;
+	}(_react2.default.Component);
+
+	exports.default = MenuOptions;
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule Object.assign
-	 */
-
-	// https://people.mozilla.org/~jorendorff/es6-draft.html#sec-object.assign
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function assign(target, sources) {
-	  if (target == null) {
-	    throw new TypeError('Object.assign target cannot be null or undefined');
-	  }
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	  var to = Object(target);
-	  var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	  for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
-	    var nextSource = arguments[nextIndex];
-	    if (nextSource == null) {
-	      continue;
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _buildClassName = __webpack_require__(5);
+
+	var _buildClassName2 = _interopRequireDefault(_buildClassName);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MenuOption = function (_React$Component) {
+	  _inherits(MenuOption, _React$Component);
+
+	  function MenuOption() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
+	    _classCallCheck(this, MenuOption);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
 	    }
 
-	    var from = Object(nextSource);
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(MenuOption)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.buildClassName = _buildClassName2.default, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
 
-	    // We don't currently support accessors nor proxies. Therefore this
-	    // copy cannot throw. If we ever supported this then we must handle
-	    // exceptions and side-effects. We don't support symbols so they won't
-	    // be transferred.
-
-	    for (var key in from) {
-	      if (hasOwnProperty.call(from, key)) {
-	        to[key] = from[key];
+	  _createClass(MenuOption, [{
+	    key: 'notifyDisabledSelect',
+	    value: function notifyDisabledSelect() {
+	      if (this.props.onDisabledSelect) {
+	        this.props.onDisabledSelect();
 	      }
 	    }
-	  }
+	  }, {
+	    key: 'onSelect',
+	    value: function onSelect() {
+	      if (this.props.disabled) {
+	        this.notifyDisabledSelect();
+	        //early return if disabled
+	        return;
+	      }
+	      if (this.props.onSelect) {
+	        this.props.onSelect();
+	      }
+	      this.props._internalSelect();
+	    }
+	  }, {
+	    key: 'handleKeyUp',
+	    value: function handleKeyUp(e) {
+	      if (e.key === ' ') {
+	        this.onSelect();
+	      }
+	    }
+	  }, {
+	    key: 'handleKeyDown',
+	    value: function handleKeyDown(e) {
+	      if (e.key === 'Enter') {
+	        this.onSelect();
+	      }
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.onSelect();
+	    }
+	  }, {
+	    key: 'handleHover',
+	    value: function handleHover() {
+	      this.props._internalFocus();
+	    }
+	  }, {
+	    key: 'buildName',
+	    value: function buildName() {
+	      var name = this.buildClassName('Menu__MenuOption');
+	      if (this.props.active) {
+	        name += ' Menu__MenuOption--active';
+	      }
+	      if (this.props.disabled) {
+	        name += ' Menu__MenuOption--disabled';
+	      }
+	      return name;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          onClick: this.handleClick.bind(this),
+	          onKeyUp: this.handleKeyUp.bind(this),
+	          onKeyDown: this.handleKeyDown.bind(this),
+	          onMouseOver: this.handleHover.bind(this),
+	          className: this.buildName(),
+	          role: 'menuitem',
+	          tabIndex: '-1',
+	          'aria-disabled': this.props.disabled
+	        },
+	        this.props.children
+	      );
+	    }
+	  }], [{
+	    key: 'propTypes',
+	    get: function get() {
+	      return {
+	        active: _react2.default.PropTypes.bool,
+	        onSelect: _react2.default.PropTypes.func,
+	        onDisabledSelect: _react2.default.PropTypes.func,
+	        disabled: _react2.default.PropTypes.bool,
+	        _internalSelect: _react2.default.PropTypes.func,
+	        _internalFocus: _react2.default.PropTypes.func
+	      };
+	    }
+	  }]);
 
-	  return to;
-	}
+	  return MenuOption;
+	}(_react2.default.Component);
 
-	module.exports = assign;
+	exports.default = MenuOption;
 
 /***/ },
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule canDefineProperty
-	 */
+/***/ function(module, exports) {
 
 	'use strict';
 
-	var canDefineProperty = false;
-	if (process.env.NODE_ENV !== 'production') {
-	  try {
-	    Object.defineProperty({}, 'x', { get: function () {} });
-	    canDefineProperty = true;
-	  } catch (x) {
-	    // IE will fail on defineProperty
-	  }
-	}
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	module.exports = canDefineProperty;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+	exports.default = function () {
+	  return 'react-menu-' + count++;
+	};
+
+	var count = 0;
+	;
 
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule ReactPropTransferer
-	 */
-
 	'use strict';
 
-	var assign = __webpack_require__(7);
-	var emptyFunction = __webpack_require__(10);
-	var joinClasses = __webpack_require__(11);
-
-	/**
-	 * Creates a transfer strategy that will merge prop values using the supplied
-	 * `mergeStrategy`. If a prop was previously unset, this just sets it.
-	 *
-	 * @param {function} mergeStrategy
-	 * @return {function}
-	 */
-	function createTransferStrategy(mergeStrategy) {
-	  return function (props, key, value) {
-	    if (!props.hasOwnProperty(key)) {
-	      props[key] = value;
-	    } else {
-	      props[key] = mergeStrategy(props[key], value);
-	    }
-	  };
-	}
-
-	var transferStrategyMerge = createTransferStrategy(function (a, b) {
-	  // `merge` overrides the first object's (`props[key]` above) keys using the
-	  // second object's (`value`) keys. An object's style's existing `propA` would
-	  // get overridden. Flip the order here.
-	  return assign({}, b, a);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
 
-	/**
-	 * Transfer strategies dictate how props are transferred by `transferPropsTo`.
-	 * NOTE: if you add any more exceptions to this list you should be sure to
-	 * update `cloneWithProps()` accordingly.
-	 */
-	var TransferStrategies = {
-	  /**
-	   * Never transfer `children`.
-	   */
-	  children: emptyFunction,
-	  /**
-	   * Transfer the `className` prop by merging them.
-	   */
-	  className: createTransferStrategy(joinClasses),
-	  /**
-	   * Transfer the `style` prop (which is an object) by merging them.
-	   */
-	  style: transferStrategyMerge
-	};
-
-	/**
-	 * Mutates the first argument by transferring the properties from the second
-	 * argument.
-	 *
-	 * @param {object} props
-	 * @param {object} newProps
-	 * @return {object}
-	 */
-	function transferInto(props, newProps) {
-	  for (var thisKey in newProps) {
-	    if (!newProps.hasOwnProperty(thisKey)) {
-	      continue;
-	    }
-
-	    var transferStrategy = TransferStrategies[thisKey];
-
-	    if (transferStrategy && TransferStrategies.hasOwnProperty(thisKey)) {
-	      transferStrategy(props, thisKey, newProps[thisKey]);
-	    } else if (!props.hasOwnProperty(thisKey)) {
-	      props[thisKey] = newProps[thisKey];
-	    }
-	  }
-	  return props;
-	}
-
-	/**
-	 * ReactPropTransferer are capable of transferring props to another component
-	 * using a `transferPropsTo` method.
-	 *
-	 * @class ReactPropTransferer
-	 */
-	var ReactPropTransferer = {
-
-	  /**
-	   * Merge two props objects using TransferStrategies.
-	   *
-	   * @param {object} oldProps original props (they take precedence)
-	   * @param {object} newProps new props to merge in
-	   * @return {object} a new object containing both sets of props merged.
-	   */
-	  mergeProps: function (oldProps, newProps) {
-	    return transferInto(assign({}, oldProps), newProps);
-	  }
-
-	};
-
-	module.exports = ReactPropTransferer;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule emptyFunction
-	 */
-
-	"use strict";
-
-	function makeEmptyFunction(arg) {
-	  return function () {
-	    return arg;
-	  };
-	}
-
-	/**
-	 * This function accepts and discards inputs; it has no side effects. This is
-	 * primarily useful idiomatically for overridable function endpoints which
-	 * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
-	 */
-	function emptyFunction() {}
-
-	emptyFunction.thatReturns = makeEmptyFunction;
-	emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-	emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-	emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-	emptyFunction.thatReturnsThis = function () {
-	  return this;
-	};
-	emptyFunction.thatReturnsArgument = function (arg) {
-	  return arg;
-	};
-
-	module.exports = emptyFunction;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule joinClasses
-	 * @typechecks static-only
-	 */
-
-	'use strict';
-
-	/**
-	 * Combines multiple className strings into one.
-	 * http://jsperf.com/joinclasses-args-vs-array
-	 *
-	 * @param {...?string} className
-	 * @return {string}
-	 */
-	function joinClasses(className /*, ... */) {
-	  if (!className) {
-	    className = '';
-	  }
-	  var nextClass;
-	  var argLength = arguments.length;
-	  if (argLength > 1) {
-	    for (var ii = 1; ii < argLength; ii++) {
-	      nextClass = arguments[ii];
-	      if (nextClass) {
-	        className = (className ? className + ' ' : '') + nextClass;
-	      }
-	    }
-	  }
-	  return className;
-	}
-
-	module.exports = joinClasses;
-
-/***/ },
-/* 12 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule keyOf
-	 */
-
-	/**
-	 * Allows extraction of a minified key. Let's the build system minify keys
-	 * without losing the ability to dynamically use key strings as values
-	 * themselves. Pass in an object with a single key/val pair and it will return
-	 * you the string key of that single record. Suppose you want to grab the
-	 * value for a key 'className' inside of an object. Key/val minification may
-	 * have aliased that key to be 'xa12'. keyOf({className: null}) will return
-	 * 'xa12' in that case. Resolve keys you want to use once at startup time, then
-	 * reuse those resolutions.
-	 */
-	"use strict";
-
-	var keyOf = function (oneKeyObj) {
-	  var key;
-	  for (key in oneKeyObj) {
-	    if (!oneKeyObj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    return key;
-	  }
-	  return null;
-	};
-
-	module.exports = keyOf;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule warning
-	 */
-
-	'use strict';
-
-	var emptyFunction = __webpack_require__(10);
-
-	/**
-	 * Similar to invariant but only logs a warning if the condition is not met.
-	 * This can be used to log issues in development environments in critical
-	 * paths. Removing the logging code for production environments will keep the
-	 * same logic and follow the same code paths.
-	 */
-
-	var warning = emptyFunction;
-
-	if (process.env.NODE_ENV !== 'production') {
-	  warning = function (condition, format) {
-	    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-	      args[_key - 2] = arguments[_key];
-	    }
-
-	    if (format === undefined) {
-	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	    }
-
-	    if (format.indexOf('Failed Composite propType: ') === 0) {
-	      return; // Ignore CompositeComponent proptype check.
-	    }
-
-	    if (!condition) {
-	      var argIndex = 0;
-	      var message = 'Warning: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      });
-	      if (typeof console !== 'undefined') {
-	        console.error(message);
-	      }
-	      try {
-	        // --- Welcome to debugging React ---
-	        // This error was thrown as a convenience so that you can use this stack
-	        // to find the callsite that caused this warning to fire.
-	        throw new Error(message);
-	      } catch (x) {}
-	    }
-	  };
-	}
-
-	module.exports = warning;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-
-	var buildClassName = __webpack_require__(15);
-
-	var MenuTrigger = module.exports = React.createFactory(React.createClass({
-	  displayName: 'exports',
-
-
-	  contextTypes: {
-	    id: React.PropTypes.string,
-	    active: React.PropTypes.bool
-	  },
-
-	  mixins: [buildClassName],
-
-	  toggleActive: function () {
-	    this.props.onToggleActive(!this.context.active);
-	  },
-
-	  handleKeyUp: function (e) {
-	    if (e.key === ' ') this.toggleActive();
-	  },
-
-	  handleKeyDown: function (e) {
-	    if (e.key === 'Enter') this.toggleActive();
-	  },
-
-	  handleClick: function () {
-	    this.toggleActive();
-	  },
-
-	  render: function () {
-	    var triggerClassName = this.buildClassName('Menu__MenuTrigger ' + (this.context.active ? 'Menu__MenuTrigger__active' : 'Menu__MenuTrigger__inactive'));
-
-	    return React.createElement(
-	      'div',
-	      {
-	        className: triggerClassName,
-	        onClick: this.handleClick,
-	        onKeyUp: this.handleKeyUp,
-	        onKeyDown: this.handleKeyDown,
-	        tabIndex: '0',
-	        role: 'button',
-	        'aria-owns': this.context.id,
-	        'aria-haspopup': 'true'
-	      },
-	      this.props.children
-	    );
-	  }
-
-	}));
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	module.exports = {
-
-	  buildClassName: function (baseName) {
-	    var name = baseName;
-	    if (this.props.className) {
-	      name += ' ' + this.props.className;
-	    }
-	    return name;
-	  }
-	};
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-
-	var MenuOption = __webpack_require__(17);
-	var cloneWithProps = __webpack_require__(3);
-	var buildClassName = __webpack_require__(15);
-
-	var MenuOptions = module.exports = React.createFactory(React.createClass({
-	  displayName: 'exports',
-
-
-	  contextTypes: {
-	    id: React.PropTypes.string,
-	    active: React.PropTypes.bool
-	  },
-
-	  getInitialState: function () {
-	    return { activeIndex: 0 };
-	  },
-
-	  mixins: [buildClassName],
-
-	  onSelectionMade: function () {
-	    this.props.onSelectionMade();
-	  },
-
-	  moveSelectionUp: function () {
-	    this.updateFocusIndexBy(-1);
-	  },
-
-	  moveSelectionDown: function () {
-	    this.updateFocusIndexBy(1);
-	  },
-
-	  handleKeys: function (e) {
-	    var options = {
-	      'ArrowDown': this.moveSelectionDown,
-	      'ArrowUp': this.moveSelectionUp,
-	      'Escape': this.closeMenu
-	    };
-	    if (options[e.key]) {
-	      options[e.key].call(this);
-	    }
-	  },
-
-	  normalizeSelectedBy: function (delta, numOptions) {
-	    this.selectedIndex += delta;
-	    if (this.selectedIndex > numOptions - 1) {
-	      this.selectedIndex = 0;
-	    } else if (this.selectedIndex < 0) {
-	      this.selectedIndex = numOptions - 1;
-	    }
-	  },
-
-	  focusOption: function (index) {
-	    this.selectedIndex = index;
-	    this.updateFocusIndexBy(0);
-	  },
-
-	  updateFocusIndexBy: function (delta) {
-	    var optionNodes = this.getDOMNode().querySelectorAll('.Menu__MenuOption');
-	    this.normalizeSelectedBy(delta, optionNodes.length);
-	    this.setState({ activeIndex: this.selectedIndex }, function () {
-	      optionNodes[this.selectedIndex].focus();
-	    });
-	  },
-
-	  renderOptions: function () {
-	    var index = 0;
-	    return React.Children.map(this.props.children, function (c) {
-	      var clonedOption = c;
-	      if (c.type === MenuOption.type) {
-	        var active = this.state.activeIndex === index;
-	        clonedOption = cloneWithProps(c, {
-	          active: active,
-	          index: index,
-	          _internalFocus: this.focusOption,
-	          _internalSelect: this.onSelectionMade
-	        });
-	        index++;
-	      }
-	      return clonedOption;
-	    }.bind(this));
-	  },
-
-	  buildName: function () {
-	    var cn = this.buildClassName('Menu__MenuOptions');
-	    cn += ' Menu__MenuOptions--horizontal-' + this.props.horizontalPlacement;
-	    cn += ' Menu__MenuOptions--vertical-' + this.props.verticalPlacement;
-	    return cn;
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      {
-	        id: this.context.id,
-	        role: 'menu',
-	        tabIndex: '-1',
-	        'aria-expanded': this.context.active,
-	        style: { visibility: this.context.active ? 'visible' : 'hidden' },
-	        className: this.buildName(),
-	        onKeyDown: this.handleKeys
-	      },
-	      this.renderOptions()
-	    );
-	  }
-
-	}));
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(2);
-	var buildClassName = __webpack_require__(15);
-
-	var MenuOption = module.exports = React.createFactory(React.createClass({
-	  displayName: 'exports',
-
-
-	  propTypes: {
-	    active: React.PropTypes.bool,
-	    onSelect: React.PropTypes.func,
-	    onDisabledSelect: React.PropTypes.func,
-	    disabled: React.PropTypes.bool
-	  },
-
-	  mixins: [buildClassName],
-
-	  notifyDisabledSelect: function () {
-	    if (this.props.onDisabledSelect) {
-	      this.props.onDisabledSelect();
-	    }
-	  },
-
-	  onSelect: function () {
-	    if (this.props.disabled) {
-	      this.notifyDisabledSelect();
-	      //early return if disabled
-	      return;
-	    }
-	    if (this.props.onSelect) {
-	      this.props.onSelect();
-	    }
-	    this.props._internalSelect();
-	  },
-
-	  handleKeyUp: function (e) {
-	    if (e.key === ' ') {
-	      this.onSelect();
-	    }
-	  },
-
-	  handleKeyDown: function (e) {
-	    if (e.key === 'Enter') {
-	      this.onSelect();
-	    }
-	  },
-
-	  handleClick: function () {
-	    this.onSelect();
-	  },
-
-	  handleHover: function () {
-	    this.props._internalFocus(this.props.index);
-	  },
-
-	  buildName: function () {
-	    var name = this.buildClassName('Menu__MenuOption');
-	    if (this.props.active) {
-	      name += ' Menu__MenuOption--active';
-	    }
-	    if (this.props.disabled) {
-	      name += ' Menu__MenuOption--disabled';
-	    }
-	    return name;
-	  },
-
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      {
-	        onClick: this.handleClick,
-	        onKeyUp: this.handleKeyUp,
-	        onKeyDown: this.handleKeyDown,
-	        onMouseOver: this.handleHover,
-	        className: this.buildName(),
-	        role: 'menuitem',
-	        tabIndex: '-1',
-	        'aria-disabled': this.props.disabled
-	      },
-	      this.props.children
-	    );
-	  }
-
-	}));
-
-/***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	var count = 0;
-	module.exports = function () {
-	  return 'react-menu-' + count++;
-	};
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jss = __webpack_require__(20);
-
-	module.exports = function () {
-	  jss({
+	exports.default = function () {
+	  (0, _jsStylesheet2.default)({
 	    '.Menu': {
 	      position: 'relative'
 	    },
@@ -1383,8 +829,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	};
 
+	var _jsStylesheet = __webpack_require__(10);
+
+	var _jsStylesheet2 = _interopRequireDefault(_jsStylesheet);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	;
+
 /***/ },
-/* 20 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	!(function() {

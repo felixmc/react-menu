@@ -1,24 +1,28 @@
-var React = require('react');
-var buildClassName = require('../mixins/buildClassName');
+import React from 'react';
 
-var MenuOption = module.exports = React.createFactory(React.createClass({
+import buildClassName from '../mixins/buildClassName';
 
-  propTypes: {
-    active: React.PropTypes.bool,
-    onSelect: React.PropTypes.func,
-    onDisabledSelect: React.PropTypes.func,
-    disabled: React.PropTypes.bool
-  },
+export default class MenuOption extends React.Component {
+  static get propTypes() {
+    return {
+      active: React.PropTypes.bool,
+      onSelect: React.PropTypes.func,
+      onDisabledSelect: React.PropTypes.func,
+      disabled: React.PropTypes.bool,
+      _internalSelect: React.PropTypes.func,
+      _internalFocus: React.PropTypes.func
+    }
+  }
 
-  mixins: [buildClassName],
+  buildClassName = buildClassName
 
-  notifyDisabledSelect: function() {
+  notifyDisabledSelect() {
     if (this.props.onDisabledSelect) {
       this.props.onDisabledSelect();
     }
-  },
+  }
 
-  onSelect: function() {
+  onSelect() {
     if (this.props.disabled) {
       this.notifyDisabledSelect();
       //early return if disabled
@@ -28,54 +32,53 @@ var MenuOption = module.exports = React.createFactory(React.createClass({
       this.props.onSelect();
     }
     this.props._internalSelect();
-  },
+  }
 
-  handleKeyUp: function(e) {
+  handleKeyUp(e) {
     if (e.key === ' ') {
       this.onSelect();
     }
-  },
+  }
 
-  handleKeyDown: function(e) {
+  handleKeyDown(e) {
     if (e.key === 'Enter') {
       this.onSelect();
     }
-  },
+  }
 
-  handleClick: function() {
+  handleClick() {
     this.onSelect();
-  },
+  }
 
-  handleHover: function() {
-    this.props._internalFocus(this.props.index);
-  },
+  handleHover() {
+    this.props._internalFocus();
+  }
 
-  buildName: function() {
-    var name = this.buildClassName('Menu__MenuOption');
-    if (this.props.active){
+  buildName() {
+    let name = this.buildClassName('Menu__MenuOption');
+    if (this.props.active) {
       name += ' Menu__MenuOption--active';
     }
     if (this.props.disabled) {
       name += ' Menu__MenuOption--disabled';
     }
     return name;
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div
-        onClick={this.handleClick}
-        onKeyUp={this.handleKeyUp}
-        onKeyDown={this.handleKeyDown}
-        onMouseOver={this.handleHover}
+        onClick={this.handleClick.bind(this)}
+        onKeyUp={this.handleKeyUp.bind(this)}
+        onKeyDown={this.handleKeyDown.bind(this)}
+        onMouseOver={this.handleHover.bind(this)}
         className={this.buildName()}
-        role="menuitem"
-        tabIndex="-1"
+        role='menuitem'
+        tabIndex='-1'
         aria-disabled={this.props.disabled}
       >
         {this.props.children}
       </div>
     )
   }
-
-}));
+}

@@ -1,6 +1,6 @@
-var jss = require('js-stylesheet');
+import jss from 'js-stylesheet';
 
-module.exports = function() {
+export default function() {
   jss({
     '.Menu': {
       position: 'relative'

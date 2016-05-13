@@ -1,6 +1,6 @@
-var Menu = require('./components/Menu');
-Menu.MenuTrigger = require('./components/MenuTrigger');
-Menu.MenuOptions = require('./components/MenuOptions');
-Menu.MenuOption = require('./components/MenuOption');
+import Menu from './components/Menu';
+import MenuTrigger from './components/MenuTrigger';
+import MenuOptions from './components/MenuOptions';
+import MenuOption from './components/MenuOption';
 
-module.exports = Menu;
+export { Menu as default, MenuTrigger, MenuOptions, MenuOption }

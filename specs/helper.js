@@ -1,19 +1,13 @@
-assert = require('assert');
-React = require('react');
-ReactDOM = require('react-dom');
-TestUtils = require('react-addons-test-utils');
-var Menu = require('../src/components/Menu');
-var MenuTrigger = require('../src/components/MenuTrigger');
-var MenuOptions = require('../src/components/MenuOptions');
-var MenuOption = require('../src/components/MenuOption');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 
-ok = assert.ok;
-equal = assert.equal;
-strictEqual = assert.strictEqual;
-throws = assert.throws;
+import Menu from '../src/components/Menu';
+import MenuTrigger from '../src/components/MenuTrigger';
+import MenuOptions from '../src/components/MenuOptions';
+import MenuOption from '../src/components/MenuOption';
 
-var _menuNode;
-renderMenu = function(container) {
+function renderMenu(container) {
   container = container || document.body;
 
   return ReactDOM.render((
@@ -29,8 +23,9 @@ renderMenu = function(container) {
   ), container);
 };
 
-unmountMenu = function(container) {
+function unmountMenu(container) {
   container = container || document.body;
   ReactDOM.unmountComponentAtNode(container);
 };
 
+export {renderMenu, unmountMenu}

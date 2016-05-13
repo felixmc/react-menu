@@ -1,4 +1,4 @@
 var count = 0;
-module.exports = function () {
+export default function () {
   return 'react-menu-' + count++;
 };

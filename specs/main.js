@@ -1,2 +1,2 @@
-require('./buildClassName.spec.js');
-require('./Menu.spec.js');
+import './buildClassName.spec.js';
+import './Menu.spec.js';
