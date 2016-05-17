@@ -13,6 +13,7 @@
     "example": "examples"
   },
   "scripts": {
+    "build": "npm run build:lib && npm run build:dist",
     "build:lib": "babel src --out-dir lib",
     "build:dist": "webpack",
     "build:examples": "webpack --config webpack.examples.config.js",

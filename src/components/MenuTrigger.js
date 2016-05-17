@@ -6,7 +6,8 @@ export default class MenuTrigger extends React.Component {
   static get contextTypes() {
     return {
       id: React.PropTypes.string,
-      active: React.PropTypes.bool
+      active: React.PropTypes.bool,
+      label: React.PropTypes.string
     }
   }
 
@@ -46,9 +47,10 @@ export default class MenuTrigger extends React.Component {
         onKeyUp={this.handleKeyUp.bind(this)}
         onKeyDown={this.handleKeyDown.bind(this)}
         tabIndex='0'
-        role="button"
+        role='button'
+        aria-label={this.props.label}
         aria-owns={this.context.id}
-        aria-haspopup='true'
+      aria-haspopup='true'
       >
         {this.props.children}
       </div>

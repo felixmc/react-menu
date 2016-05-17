@@ -409,6 +409,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onKeyDown: this.handleKeyDown.bind(this),
 	          tabIndex: '0',
 	          role: 'button',
+	          'aria-label': this.props.label,
 	          'aria-owns': this.context.id,
 	          'aria-haspopup': 'true'
 	        },
@@ -420,7 +421,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    get: function get() {
 	      return {
 	        id: _react2.default.PropTypes.string,
-	        active: _react2.default.PropTypes.bool
+	        active: _react2.default.PropTypes.bool,
+	        label: _react2.default.PropTypes.string
 	      };
 	    }
 	  }]);
