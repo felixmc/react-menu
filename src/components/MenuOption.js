@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
+import Menu from './Menu';
 import buildClassName from '../mixins/buildClassName';
 
 export default class MenuOption extends React.Component {
@@ -9,6 +11,7 @@ export default class MenuOption extends React.Component {
       onSelect: React.PropTypes.func,
       onDisabledSelect: React.PropTypes.func,
       disabled: React.PropTypes.bool,
+      link: React.PropTypes.object,
       _internalSelect: React.PropTypes.func,
       _internalFocus: React.PropTypes.func
     }
@@ -24,14 +27,19 @@ export default class MenuOption extends React.Component {
 
   onSelect() {
     if (this.props.disabled) {
-      this.notifyDisabledSelect();
+      this.notifyDisabledSelect()
       //early return if disabled
-      return;
+      return
+    } else if (this.props.onSelect) {
+      this.props.onSelect()
+    } else if (this.props.link) {
+      this.props.link.click()
+    } else if (this.props.children.type === Menu) {
+      ReactDOM.findDOMNode(this).querySelector('.Menu__MenuTrigger').click()
+      return
     }
-    if (this.props.onSelect) {
-      this.props.onSelect();
-    }
-    this.props._internalSelect();
+
+    this.props._internalSelect()
   }
 
   handleKeyUp(e) {
@@ -51,7 +59,12 @@ export default class MenuOption extends React.Component {
   }
 
   handleHover() {
-    this.props._internalFocus();
+    if (!this.refs.option.contains(document.activeElement)) {
+      this.props._internalFocus()
+      if (this.props.children.type === Menu) {
+        ReactDOM.findDOMNode(this).querySelector('.Menu__MenuTrigger').click()
+      }
+    }
   }
 
   buildName() {
@@ -76,6 +89,7 @@ export default class MenuOption extends React.Component {
         role='menuitem'
         tabIndex='-1'
         aria-disabled={this.props.disabled}
+        ref='option'
       >
         {this.props.children}
       </div>

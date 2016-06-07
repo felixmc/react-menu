@@ -71,11 +71,10 @@ export default class Menu extends React.Component {
   }
 
   handleBlur(e) {
-    const self = this;
     // give next element a tick to take focus
     setTimeout(() => {
-      if (!ReactDOM.findDOMNode(self).contains(document.activeElement)) {
-        self.closeMenu(true);
+      if (!this.refs.menu.contains(document.activeElement)) {
+        this.closeMenu(true);
       }
     }, 1);
   }
@@ -111,7 +110,9 @@ export default class Menu extends React.Component {
 
   handleKeys(e) {
     if (e.key === 'Escape') {
-      this.closeMenu();
+      this.closeMenu()
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 
@@ -155,6 +156,7 @@ export default class Menu extends React.Component {
         className={this.buildClassName('Menu')}
         onKeyDown={this.handleKeys.bind(this)}
         onBlur={this.handleBlur.bind(this)}
+        ref='menu'
       >
         {this.renderTrigger()}
         {this.renderMenuOptions()}

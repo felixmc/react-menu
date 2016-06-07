@@ -213,11 +213,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'handleBlur',
 	    value: function handleBlur(e) {
-	      var self = this;
+	      var _this3 = this;
+
 	      // give next element a tick to take focus
 	      setTimeout(function () {
-	        if (!_reactDom2.default.findDOMNode(self).contains(document.activeElement)) {
-	          self.closeMenu(true);
+	        if (!_this3.refs.menu.contains(document.activeElement)) {
+	          _this3.closeMenu(true);
 	        }
 	      }, 1);
 	    }
@@ -258,6 +259,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function handleKeys(e) {
 	      if (e.key === 'Escape') {
 	        this.closeMenu();
+	        e.preventDefault();
+	        e.stopPropagation();
 	      }
 	    }
 	  }, {
@@ -304,7 +307,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        {
 	          className: this.buildClassName('Menu'),
 	          onKeyDown: this.handleKeys.bind(this),
-	          onBlur: this.handleBlur.bind(this)
+	          onBlur: this.handleBlur.bind(this),
+	          ref: 'menu'
 	        },
 	        this.renderTrigger(),
 	        this.renderMenuOptions()
@@ -540,6 +544,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	      if (options[e.key]) {
 	        options[e.key].call(this);
+	        e.preventDefault();
+	        e.stopPropagation();
 	      }
 	    }
 	  }, {
@@ -563,7 +569,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function updateFocusIndexBy(delta) {
 	      var _this2 = this;
 
-	      var optionNodes = _reactDom2.default.findDOMNode(this).querySelectorAll('.Menu__MenuOption');
+	      var optionNodes = _reactDom2.default.findDOMNode(this).children;
 	      this.normalizeSelectedBy(delta, optionNodes.length);
 	      this.setState({ activeIndex: this.selectedIndex }, function () {
 	        optionNodes[_this2.selectedIndex].focus();
@@ -572,17 +578,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'renderOptions',
 	    value: function renderOptions() {
-	      var self = this;
+	      var _this3 = this;
+
 	      var index = 0;
 	      return _react2.default.Children.map(this.props.children, function (c) {
 	        var clonedOption = c;
 	        if (c.type === _MenuOption2.default) {
-	          var active = self.state.activeIndex === index;
+	          var active = _this3.state.activeIndex === index;
 	          clonedOption = _react2.default.cloneElement(c, {
 	            active: active,
 	            index: index,
-	            _internalFocus: self.focusOption.bind(self, index),
-	            _internalSelect: self.onSelectionMade.bind(self)
+	            _internalFocus: _this3.focusOption.bind(_this3, index),
+	            _internalSelect: _this3.onSelectionMade.bind(_this3)
 	          });
 	          index++;
 	        }
@@ -637,6 +644,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(3);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Menu = __webpack_require__(1);
+
+	var _Menu2 = _interopRequireDefault(_Menu);
+
 	var _buildClassName = __webpack_require__(5);
 
 	var _buildClassName2 = _interopRequireDefault(_buildClassName);
@@ -680,10 +695,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.notifyDisabledSelect();
 	        //early return if disabled
 	        return;
-	      }
-	      if (this.props.onSelect) {
+	      } else if (this.props.onSelect) {
 	        this.props.onSelect();
+	      } else if (this.props.link) {
+	        this.props.link.click();
+	      } else if (this.props.children.type === _Menu2.default) {
+	        _reactDom2.default.findDOMNode(this).querySelector('.Menu__MenuTrigger').click();
+	        return;
 	      }
+
 	      this.props._internalSelect();
 	    }
 	  }, {
@@ -708,7 +728,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'handleHover',
 	    value: function handleHover() {
-	      this.props._internalFocus();
+	      if (!this.refs.option.contains(document.activeElement)) {
+	        this.props._internalFocus();
+	        if (this.props.children.type === _Menu2.default) {
+	          _reactDom2.default.findDOMNode(this).querySelector('.Menu__MenuTrigger').click();
+	        }
+	      }
 	    }
 	  }, {
 	    key: 'buildName',
@@ -735,7 +760,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          className: this.buildName(),
 	          role: 'menuitem',
 	          tabIndex: '-1',
-	          'aria-disabled': this.props.disabled
+	          'aria-disabled': this.props.disabled,
+	          ref: 'option'
 	        },
 	        this.props.children
 	      );
@@ -748,6 +774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onSelect: _react2.default.PropTypes.func,
 	        onDisabledSelect: _react2.default.PropTypes.func,
 	        disabled: _react2.default.PropTypes.bool,
+	        link: _react2.default.PropTypes.object,
 	        _internalSelect: _react2.default.PropTypes.func,
 	        _internalFocus: _react2.default.PropTypes.func
 	      };

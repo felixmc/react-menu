@@ -41,7 +41,9 @@ export default class MenuOptions extends React.Component {
       'Escape': this.closeMenu
     }
     if (options[e.key]) {
-      options[e.key].call(this);
+      options[e.key].call(this)
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 
@@ -60,25 +62,24 @@ export default class MenuOptions extends React.Component {
   }
 
   updateFocusIndexBy(delta) {
-    const optionNodes = ReactDOM.findDOMNode(this).querySelectorAll('.Menu__MenuOption');
-    this.normalizeSelectedBy(delta, optionNodes.length);
+    const optionNodes = ReactDOM.findDOMNode(this).children
+    this.normalizeSelectedBy(delta, optionNodes.length)
     this.setState({activeIndex: this.selectedIndex}, () => {
-      optionNodes[this.selectedIndex].focus();
+      optionNodes[this.selectedIndex].focus()
     });
   }
 
   renderOptions() {
-    const self = this;
     let index = 0;
     return React.Children.map(this.props.children, (c) => {
       let clonedOption = c;
       if (c.type === MenuOption) {
-        const active = self.state.activeIndex === index;
+        const active = this.state.activeIndex === index;
         clonedOption = React.cloneElement(c, {
           active: active,
           index: index,
-          _internalFocus: self.focusOption.bind(self, index),
-          _internalSelect: self.onSelectionMade.bind(self)
+          _internalFocus: this.focusOption.bind(this, index),
+          _internalSelect: this.onSelectionMade.bind(this)
         });
         index++;
       }

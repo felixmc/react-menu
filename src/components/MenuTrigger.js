@@ -50,7 +50,7 @@ export default class MenuTrigger extends React.Component {
         role='button'
         aria-label={this.props.label}
         aria-owns={this.context.id}
-      aria-haspopup='true'
+        aria-haspopup='true'
       >
         {this.props.children}
       </div>
