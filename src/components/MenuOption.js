@@ -12,6 +12,7 @@ export default class MenuOption extends React.Component {
       onDisabledSelect: React.PropTypes.func,
       disabled: React.PropTypes.bool,
       link: React.PropTypes.object,
+      label: React.PropTypes.string,
       _internalSelect: React.PropTypes.func,
       _internalFocus: React.PropTypes.func
     }
@@ -88,6 +89,7 @@ export default class MenuOption extends React.Component {
         className={this.buildName()}
         role='menuitem'
         tabIndex='-1'
+        aria-label={this.props.label}
         aria-disabled={this.props.disabled}
         ref='option'
       >

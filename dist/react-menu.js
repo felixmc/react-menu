@@ -760,6 +760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          className: this.buildName(),
 	          role: 'menuitem',
 	          tabIndex: '-1',
+	          'aria-label': this.props.label,
 	          'aria-disabled': this.props.disabled,
 	          ref: 'option'
 	        },
@@ -775,6 +776,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        onDisabledSelect: _react2.default.PropTypes.func,
 	        disabled: _react2.default.PropTypes.bool,
 	        link: _react2.default.PropTypes.object,
+	        label: _react2.default.PropTypes.string,
 	        _internalSelect: _react2.default.PropTypes.func,
 	        _internalFocus: _react2.default.PropTypes.func
 	      };
